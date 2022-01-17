@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Number Game</title>
+    <style>
+        .container {
+            text-align: center;
+            align-items: center;
+        }
+        #submit-btn {
+            margin-top: 10px;
+        }
+        .high-box-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        }
+        .high-box {
+            background-color: red;
+            color: white;
+            font-size: 30px;
+            height: 200px;
+            width: 200px;
+        }
+        .high-box p {
+            margin-top: 88px;
+        }
+        .low-box-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        }
+        .low-box {
+            background-color: red;
+            color: white;
+            font-size: 30px;
+            height: 200px;
+            width: 200px;
+        }
+        .low-box p {
+            margin-top: 88px;
+        }
+        .correct-box-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        }
+        .correct-box {
+            background-color: rgb(15, 189, 44);
+            color: white;
+            font-size: 25px;
+            height: 200px;
+            width: 200px;
+        }
+        .correct-box p {
+            margin-top: 80px;
+        }
+        #reset-btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Great Number Game!</h1>
+        <p>I am thinking of a number between 1 and 100</p>
+        <p>Take a guess!</p>
+{% if session["guess"] %}
+{% if guess > session["rand"] %}
+        <div class="high-box-container">
+            <div class="high-box">
+                <p>Too high!</p>
+            </div>
+        </div>
+{% elif guess < session["rand"] %}
+        <div class="low-box-container">
+            <div class="low-box">
+                <p>Too low!</p>
+            </div>
+        </div>
+{% elif guess == session["rand"] %}
+        <div class="correct-box-container">
+            <div class="correct-box">
+                <p>{{guess}} was the number!!</p>
+            </div>
+        </div>
+{% endif %}
+{% endif %}
+        <form action="/guess" method="post">
+            <input type="text" name="guess">
+            <div>
+            <button id="submit-btn">Submit</button>
+            </div>
+        </form>
+        <form action="/reset" method="post">
+            <button id="reset-btn">Generate New Number</button>
+        </form>
+    </div>
+</body>
+</html>
